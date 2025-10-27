@@ -1,0 +1,280 @@
+ *{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+ }
+
+body{
+    height: 100%;
+}
+
+.contenedor{
+    display: flex;
+    flex-direction: column;
+    color: blue;
+   /*  min-height: 100vh; */
+}
+
+.encabezado{
+    display: flex;
+    justify-content: space-between;
+    background-color:rgb(43, 29, 12);
+    flex-wrap: wrap;
+}
+
+.logo{
+    padding: 1rem;
+    font-weight: bold;
+}
+
+.navegacion{
+    display: flex;
+    justify-content:flex-end;
+    flex-wrap: wrap;
+    padding: 1rem;
+    /* padding-top: 2rem; */
+    background-color:rgb(43, 29, 12);
+    text-decoration: none;
+}
+
+.navegacion ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    text-decoration: none;
+    gap: 3rem;
+    font-weight: bold;
+    padding-right: 2rem;
+
+}
+
+.navegacion a {
+    text-decoration: none;
+    padding-top: 9rem;
+}
+
+
+.botones-navegacion{
+    display: flex;
+    padding-left: 5rem;
+    padding: 0.2rem;
+    gap: 1rem;
+}
+
+.botones-navegacion a {
+    background-color: aqua;
+    border-radius: 5px;
+    padding: 0.3rem;
+    /* flex: 1;  permite distribuirse en el ancho del contenedro los botones crecen o se disminuyen de tamano*/
+}
+
+.seccion-principal{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap; /* permite acomodarse en las pantallas de celulares */
+    /* height: 70vh; */
+    gap: 1rem;
+    padding: 5rem;
+    flex: 1;
+    background-image: url('https://image-tc.galaxy.tf/wijpeg-6e5ybdkudpgteg7p73q1xy9yd/latranquera2.jpg?width=1920');
+    background-size: cover;
+}
+
+.seccion-principal > section {
+    background-color: rgb(224, 218, 218);
+    padding: 1rem;
+    border-radius: 15px;
+    
+}
+
+.formularios{
+    display: flex;
+    flex-direction: column;
+    width: 20rem;
+    /* align-items: center; */
+    gap: 1rem;
+    flex-wrap: wrap;    
+    padding: 25px;
+    /* border: 2px solid #d7d4d4; */
+    border-radius: 2px;
+    
+    
+
+}
+
+.formularios input{
+    border:solid rgb(245, 242, 242);
+    border-radius:5px;
+    padding: 0.3rem;
+}
+
+.formularios button{
+    background: rgb(119, 121, 121);
+    color: #d7d4d4;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 0.3rem;
+}
+
+#formulario-cliente{
+    width: 22rem;
+}
+
+.descripcion{
+    padding: 15px;
+    text-align: left;
+    background-image: url('https://www.cucinare.tv/wp-content/uploads/2019/04/Restaurant-1.jpg');
+    opacity: 1;
+    z-index: -100;
+}
+
+.descripcion h2{
+    text-align: center;
+    padding: 2rem;
+    color: #d7d4d4;
+}
+
+.items-cajas-uno{
+    display:flex;
+    flex-direction: row;
+    justify-content:space-around;
+    gap:25px;
+    flex-wrap: wrap;
+    padding: 3rem;
+    
+}
+
+.cajas-uno {
+    padding: 2rem;
+    border: 2px solid #0e0707;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    align-items: center;
+    z-index: 100;
+    background-color: rgb(230, 230, 212);
+    opacity: 0.7;
+
+    
+}
+
+.cajas-uno p {
+    text-align: justify;
+}
+
+.titulo{
+    align-items: center;
+    padding: 1rem;
+    font-weight: bold;
+}
+
+
+
+
+.comentador{
+    display: flex;
+    padding: 1rem;
+}
+
+.comentador img{
+    border-radius: 5rem;
+}
+
+.nombrefecha{
+    padding: 1rem;
+}
+
+.informacion{
+    padding: 5rem;
+    text-align: left;
+    background-color: beige;
+    height: 50%vh;
+}
+
+.items-cajas-dos{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    gap:25px;
+    flex-wrap: wrap;
+}
+
+.cajas-dos {
+    padding: 10px;
+    border: 2px solid #d7d4d4;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    align-items: center;
+}
+
+.heading{
+    padding: 15px;
+    text-align: left;
+    background-color: rgb(20, 20, 1);
+}
+
+.heading h1{
+    text-align: center;
+    color: antiquewhite;
+}
+
+.items-cajitas{
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    gap:0.5rem;
+    /* flex-wrap: wrap; */
+}
+
+.cajitas {
+    padding: 1rem;
+    border: 2px solid #d7d4d4;
+    border-radius: 20px;
+    display: flex; 
+    /* flex-direction: row; */
+    width: 90%;
+    align-items: center;
+    margin: 1rem;
+    color: antiquewhite;
+}
+
+.cajitas p h4 button{
+    padding: 5rem 1rem 1rem 1rem;
+}
+
+.cajitas img {
+    padding: 0.5 rem;
+    border-radius: 4 px;
+
+}
+
+.listaclientes{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: left;
+}
+
+.listaclientes div{
+    padding: 0.5rem;
+    background-color:rgb(170, 174, 174);
+    border-radius: 5px;
+}
+
+
+
+.pie-pagina{
+    display: flex;
+    justify-content: space-around;
+    background-color:burlywood;
+    padding: 0.5 rem;
+    text-align: center;
+    margin-top: auto; /* esto permite mantener en la parte de abajo el footer */
+    padding: 3rem;
+    color:white;
+}

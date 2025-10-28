@@ -1,12 +1,12 @@
 let dbClientes;
 let dbPedidos;
-let formulario;
 
+// Lista de clientes base
 const clientes = ["Juan", "Pedro", "Maria", "Carla"];
-const pedidos = [];
 
 document.addEventListener("DOMContentLoaded", () => {
-    // --- Base de datos CLIENTES ---
+
+    // === Base de datos CLIENTES ===
     const requestClientes = window.indexedDB.open('ClientesDB', 1);
 
     requestClientes.onerror = () => {
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     requestClientes.onsuccess = (event) => {
         dbClientes = event.target.result;
-        console.log("La base de datos CLIENTES está lista");
+        console.log("✅ Base de datos CLIENTES lista");
     };
 
     requestClientes.onupgradeneeded = (event) => {
@@ -23,14 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const objetoCliente = dbClientes.createObjectStore("cliente", { keyPath: "id", autoIncrement: true });
         objetoCliente.createIndex("nombre", "nombre", { unique: false });
         objetoCliente.createIndex("cedula", "cedula", { unique: false });
-        console.log("Objeto CLIENTE creado...");
+        console.log("📦 Objeto CLIENTE creado...");
     };
 
-    formulario = document.getElementById("formularioCliente");
-    formulario.addEventListener("submit", agregarCliente);
-    document.getElementById("verdatos").addEventListener("click", mostrarCliente );
-
-    // --- Base de datos PEDIDOS ---
+    // === Base de datos PEDIDOS ===
     const requestPedidos = window.indexedDB.open('PedidosDB', 1);
 
     requestPedidos.onerror = () => {
@@ -39,8 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     requestPedidos.onsuccess = (event) => {
         dbPedidos = event.target.result;
-        console.log("La base de datos PEDIDOS está lista");
-        llenarCliente();
+        console.log("Base de datos PEDIDOS lista");
+        llenarCliente(); // llenar combo cuando esté lista la BD
     };
 
     requestPedidos.onupgradeneeded = (event) => {
@@ -48,82 +44,166 @@ document.addEventListener("DOMContentLoaded", () => {
         const objetoPedido = dbPedidos.createObjectStore("pedido", { keyPath: "id", autoIncrement: true });
         objetoPedido.createIndex("producto", "producto", { unique: false });
         objetoPedido.createIndex("cantidad", "cantidad", { unique: false });
-        objetoPedido.createIndex("nombreCliente", "nombreCliente", { unique: false });
+        objetoPedido.createIndex("cliente", "cliente", { unique: false });
         console.log("Objeto PEDIDO creado...");
     };
+
+    // Formularios
+    const formularioCliente = document.getElementById("formularioCliente");
+    formularioCliente.addEventListener("submit", agregarCliente);
+
+    const formularioPedido = document.getElementById("formularioPedido");
+    formularioPedido.addEventListener("submit", agregarPedido);
+
+    // Botones de visualización
+    document.getElementById("verdatos").addEventListener("click", mostrarCliente);
+    document.getElementById("verdatospedido").addEventListener("click", mostrarPedido);
 });
 
+
+// === Función: Llenar combo de clientes ===
 function llenarCliente() {
     const selectClientes = document.getElementById("cliente");
     if (!selectClientes) {
-        console.error("No se encontró el select con id 'cliente'");
+        console.error("No se encontró el <select> con id='cliente'");
         return;
     }
 
-    console.log(clientes);
+    selectClientes.innerHTML = '<option value="">Seleccione un cliente</option>';
+
     clientes.forEach(cli => {
-        const opciones = document.createElement("option");
-        opciones.value = cli;
-        opciones.textContent = cli;
-        selectClientes.appendChild(opciones);
+        const opcion = document.createElement("option");
+        opcion.value = cli;
+        opcion.textContent = cli;
+        selectClientes.appendChild(opcion);
     });
-    console.log("Llenado de clientes");
+
+    console.log("Llenado de clientes realizado");
 }
 
+
+// === Función: Agregar Cliente ===
 function agregarCliente(e) {
     e.preventDefault();
-    const nombre = document.getElementById("nombre").value.trim(); // recupera del input su valor del formulario
-    const cedula = document.getElementById("cedula").value.trim(); // recupera el valor del input del formulario
-        if (!nombre || !cedula) {
-        return alert("Todos los campos son obligatorios"); // verifica que no este vacio los datos rellenados ene l input
+
+    const nombre = document.getElementById("nombre").value.trim();
+    const cedula = document.getElementById("cedula").value.trim();
+
+    if (!nombre || !cedula) {
+        return alert("Todos los campos son obligatorios");
     }
-    const tCliente = dbClientes.transaction("cliente","readwrite"); // la tabla se llama cliente y es una tranccion cliente = tCliente
-    const oCliente =  tCliente.objectStore("cliente"); // creamos un objeto cliente = oCliente
-    const cliente = {nombre, cedula}; //  recuperamos los datos de nomnre y cedual y lo guardamos en cliente
-    const request = oCliente.add(cliente); // se anade los datos recuperados en el objeto oCliente
 
-        requestClientes.onerror = () => {
-        console.log("Error en la Tabala Clientes"); // verifica y si no quiere guardar sale este error
-    };
+    const tCliente = dbClientes.transaction("cliente", "readwrite");
+    const oCliente = tCliente.objectStore("cliente");
+    const cliente = { nombre, cedula };
 
-    requestClientes.onsuccess = () => {
-        console.log("Cliente Agregado");
+    const request = oCliente.add(cliente);
+
+    request.onerror = () => console.log("Error al agregar cliente");
+    request.onsuccess = () => {
+        console.log("Cliente agregado correctamente");
+        mostrarCliente();
+        e.target.reset();
     };
 }
 
-function mostrarCliente(){
+
+// === Función: Mostrar Clientes ===
+function mostrarCliente() {
     const listaClientes = document.getElementById("lista-clientes");
-    listaClientes.innerHTML = "<h2>LISTA CLIENTES</h2>";
-     const lecturaClientes = dbClientes.transaction("cliente","readonly");
-     const oListaUsuario = lecturaClientes.objectStore("cliente");
-     const request = oListaUsuario.openCursor();
-     request.onsuccess = (event) => {
+    listaClientes.innerHTML = "<h3> Lista de Clientes</h3>";
+
+    const lecturaClientes = dbClientes.transaction("cliente", "readonly");
+    const oListaUsuario = lecturaClientes.objectStore("cliente");
+    const request = oListaUsuario.openCursor();
+
+    request.onsuccess = (event) => {
         const cursor = event.target.result;
-        if (cursor){
+        if (cursor) {
             const cliente = cursor.value;
             const div = document.createElement("div");
             div.classList.add("cliente");
             div.innerHTML = `
-                <p><strong>Nombre:</strong>${cliente.nombre}</p>
-                <p><strong>CI:</strong>${cliente.cedula}</p>
-                <button onclick="eliminarCliente(${cliente.id})">Eliminar</button>
+                <p><strong>Nombre:</strong> ${cliente.nombre}</p>
+                <p><strong>CI:</strong> ${cliente.cedula}</p>
+                <button onclick="eliminarCliente(${cliente.id})"> Eliminar</button>
             `;
             listaClientes.appendChild(div);
             cursor.continue();
         }
-     }
+    };
 }
 
-function eliminarCliente(id){
-    console.log("Este es el id", id);
-    const tCliente = dbClientes.transaction("cliente","readwrite");
-    const oCliente =  tCliente.objectStore("cliente");
-    const request = oCliente.delete(id); 
+
+// === Función: Eliminar Cliente ===
+function eliminarCliente(id) {
+    console.log("Eliminando cliente con ID:", id);
+
+    const tCliente = dbClientes.transaction("cliente", "readwrite");
+    const oCliente = tCliente.objectStore("cliente");
+    const request = oCliente.delete(id);
+
     request.onsuccess = () => {
-        console.log("Cliente Eliminado");
+        console.log("Cliente eliminado correctamente");
         mostrarCliente();
     };
+    request.onerror = () => console.log("Error al eliminar cliente");
+}
 
+
+// === Función: Agregar Pedido ===
+function agregarPedido(e) {
+    e.preventDefault();
+
+    const producto = document.getElementById("producto").value.trim();
+    const cantidad = document.getElementById("cantidad").value.trim();
+    const cliente = document.getElementById("cliente").value.trim();
+
+    if (!producto || !cantidad || !cliente) {
+        return alert("Todos los campos son obligatorios");
+    }
+
+    const tPedido = dbPedidos.transaction("pedido", "readwrite");
+    const oPedido = tPedido.objectStore("pedido");
+    const pedido = { producto, cantidad, cliente };
+
+    const request = oPedido.add(pedido);
+
+    request.onerror = (error) => console.log(" Error en la tabla PEDIDOS", error);
+    request.onsuccess = () => {
+        console.log("Pedido agregado correctamente");
+        mostrarPedido();
+        e.target.reset();
+    };
+}
+
+
+// === Función: Mostrar Pedidos ===
+function mostrarPedido() {
+    const listaPedidos = document.getElementById("lista");
+    listaPedidos.innerHTML = "<h3>Lista de Pedidos</h3>";
+
+    const lecturaPedidos = dbPedidos.transaction("pedido", "readonly");
+    const oListaPedido = lecturaPedidos.objectStore("pedido");
+    const request = oListaPedido.openCursor();
+
+    request.onsuccess = (event) => {
+        const cursor = event.target.result;
+        if (cursor) {
+            const pedido = cursor.value;
+            const div = document.createElement("div");
+            div.classList.add("pedido");
+            div.innerHTML = `
+                <p><strong>Producto:</strong> ${pedido.producto}</p>
+                <p><strong>Cantidad:</strong> ${pedido.cantidad}</p>
+                <p><strong>Cliente:</strong> ${pedido.cliente}</p>
+                <p><strong>-------------------------</p>
+
+            `;
+            listaPedidos.appendChild(div);
+            cursor.continue();
+        }
+    };
 }
 
 

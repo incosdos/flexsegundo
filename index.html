@@ -27,7 +27,6 @@
                         <h3><a href="#">Registrarse</a></h3>
                     </div>
                 </nav>
-                <!-- <a href="#">Imgresar</a> | <a href="#">Registrarse</a> -->
             </div>
             <main class="seccion-principal">
                 <section>
@@ -45,21 +44,23 @@
                 </section>
                 <section>
                     <h2>Pedidos</h2>
-                    <form id="formulario-producto" class="formularios">
+                    <form id="formularioPedido" class="formularios">
                         <label for="Producto">Producto</label>
                         <div>
-                            <input type="text" id="producto" requiered>
+                            <input type="text" id="producto" placeholder="producto"  requiered>
                             <button id="agregar" type="submit">AGREGAR</button>
                         </div>
                         <label for="cantidad">Cantidad</label>
-                        <input type="number" id="cantidad" requiered>
-                        <label for="cedula">Cliente</label>
+                        <input type="number" id="cantidad" placeholder="cantidad" requiered>
+                        <label for="cliente">Cliente</label>
                         <div>
                             <select id="cliente">
                                 <option >--Seleccionar Cliente--</option>
                             </select>
                         </div>                  
                     </form>
+                    <button id="verdatospedido">Ver Pedidos</button>
+                    <!-- <div id="lista"></div> -->
                 </section>
             </main>
 
@@ -133,7 +134,8 @@
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A dolores libero unde reprehenderit, consectetur exercitationem delectus neque similique, doloribus facere ab obcaecati veritatis culpa! Impedit nulla nostrum perferendis doloribus quo?</p>
             --> </div>    
             <div class="cajas-dos listapedidos" id="lista-pedidos">
-                    <h2>Lista Pedidos</h2>
+                    
+                    <div id="lista"><h2>Lista Pedidos</h2></div>
                     <!-- <img width="250" src="https://mueblesdeoficina1.com/wp-content/uploads/2024/07/como-optimizar-mejor-el-espacio-de-nuestro-mueble-para-oficina.jpg" />
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A dolores libero unde reprehenderit, consectetur exercitationem delectus neque similique, doloribus facere ab obcaecati veritatis culpa! Impedit nulla nostrum perferendis doloribus quo?</p>
             --> </div>
@@ -175,20 +177,38 @@
     </section>
 
     <footer class="pie-pagina">
-                <div class="logo">
+        <div>
+            <div>
                 <img width="50" src="https://media.istockphoto.com/id/1138202866/es/vector/banner-para-la-hora-del-desayuno-con-tenedor-y-cuchillo.webp?s=2048x2048&w=is&k=20&c=_F8JkxpM1PTd87Ns3VeNexaCYLfMXZJQVHqyu54Rnj0=" alt="LOGO">
-                </div>
-                <div>
-                      <p>Derechos reservados PRATT</p>
-                </div>
-                <div>
-                      <p>Derechos reservados PRATT</p>
-                </div>
-                <div>
-                    <p>Derechos reservados PRATT</p>
-                </div>
+            </div>
+            <div>
+            </div>
+        </div>
+            <div>
+                <h3>Síguenos</h3>
+                <p><a href="#">Facebook</a></p>
+                <p><a href="#">Instagram</a></p>
+                <p><a href="#">TikTok</a></p>
+                <p><a href="#">WhatsApp</a></p>
+            </div>
+
+
+            <div>
+                <h3>Contacto</h3>
+                <p>📍 Calle Aroma #456, Cochabamba - Bolivia</p>
+                <p>📞 +591 76543210</p>
+                <p>📧 contacto@timebreakfast.com</p>
+                <p>🕒 Lunes a Domingo: 7:00 AM - 12:00 PM</p>
+            </div>
+            
+            <div>
+                <h3>Nosotros</h3>
+                <p>En <strong>Time Breakfast</strong> ofrecemos desayunos deliciosos y frescos preparados con ingredientes naturales.</p>
+                <p>Nuestro compromiso es brindarte una experiencia cálida y acogedora para comenzar el día con energía.</p>
+            </div>
+
+
     </footer>
-    
 </body>
 <script src="script.js"></script>
 </html>

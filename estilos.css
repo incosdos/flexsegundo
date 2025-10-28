@@ -171,8 +171,6 @@ body{
 }
 
 
-
-
 .comentador{
     display: flex;
     padding: 1rem;
@@ -266,15 +264,11 @@ body{
     border-radius: 5px;
 }
 
-
-
-.pie-pagina{
+    
+.pie-pagina {
     display: flex;
-    justify-content: space-around;
-    background-color:burlywood;
-    padding: 0.5 rem;
-    text-align: center;
-    margin-top: auto; /* esto permite mantener en la parte de abajo el footer */
-    padding: 3rem;
-    color:white;
+    justify-content: space-between;
+    gap: 6rem;
+    padding: 1 rem;
+    flex-wrap: wrap;
 }
